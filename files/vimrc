@@ -1,0 +1,34 @@
+set nocompatible
+
+filetype off
+
+"set up vim plug
+call plug#begin('~/.vim/plugged')
+
+Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog'] }
+
+Plug 'ervandew/supertab'
+
+call plug#end()
+
+"turn on highlighting
+syntax on
+
+"let those plugins load
+filetype plugin indent on
+
+"make backspace work normally
+set backspace=indent,eol,start
+
+"nombres
+set number
+
+"colorscheme
+colo apprentice
+
+"mouse
+set mouse=a
+
+"supertab
+let g:SuperTabDefaultCompletiontype = "context"
+

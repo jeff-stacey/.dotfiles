@@ -19,5 +19,9 @@ for file in $filelist; do
 	ln -s $sources/$file ~/.$file
 done
 
+echo "Linking vim colorscheme"
+schemefile=`ls ~/.dotfiles/colorscheme/*.vim`
+mkdir -p  ~/.vim/colors
+ln -s $schemefile ~/.vim/colors/`basename $schemefile`
 
-
+echo "Done"

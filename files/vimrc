@@ -7,9 +7,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog'] }
 
+Plug 'lervag/vimtex', { 'for' : [ 'plaintex', 'tex' ] }
+
 Plug 'ervandew/supertab'
 
 call plug#end()
+
+"tabs
+set tabstop=4
+set expandtab
+set smartindent
+set shiftwidth=4
 
 "turn on highlighting
 syntax on
@@ -24,11 +32,24 @@ set backspace=indent,eol,start
 set number
 
 "colorscheme
-colo apprentice
+colo apprentice 
 
 "mouse
 set mouse=a
 
+"spacebar as colon
+noremap <space> :
+
 "supertab
 let g:SuperTabDefaultCompletiontype = "context"
 
+"vimtex
+let g:vimtex_view_method = "zathura"
+
+"allow multiple buffers
+set hidden
+
+"status line
+set noruler
+set laststatus=2
+set statusline=%n\ %f\ (%Y)\ %m\ %=\ %l/%L

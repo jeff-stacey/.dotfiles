@@ -19,9 +19,17 @@ for file in $filelist; do
 	ln -s $sources/$file ~/.$file
 done
 
-echo "Linking vim colorscheme"
-schemefile=`ls ~/.dotfiles/colorscheme/*.vim`
-mkdir -p  ~/.vim/colors
-ln -s $schemefile ~/.vim/colors/`basename $schemefile`
+if [ -d ~/.config/nvim ]; then
+    if [ -f ~/.config/nvim/init.vim ]; then
+        echo "nvim init file already exists, skipping replacement"
+    else
+        echo "configuring nvim"
+        echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after
+        let &packpath = &runtimepath
+        source ~/.vimrc" > ~/.config/nvim/init.vim
+    fi
+else
+    echo "nvim not installed, skipping configuration"
+fi
 
 echo "Done"

@@ -1,0 +1,29 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/jeff/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+autoload -Uz promptinit
+promptinit
+
+
+random_prompt_colour () {
+    prompt_colour_options=("red", "blue", "yellow", "green", "magenta")
+    ((index=($RANDOM % $#prompt_colour_options) + 1))
+    prompt walters $prompt_colour_options[$index]   
+}
+
+add-zsh-hook precmd random_prompt_colour
+
+bindkey -v 
+bindkey '^R' history-incremental-search-backward
+
+alias ..="cd .."

@@ -5,20 +5,42 @@ filetype off
 "set up vim plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog'] }
+Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog', 'verilogsystemverilog', 'verilog_systemverilog'] }
 
 Plug 'lervag/vimtex', { 'for' : [ 'plaintex', 'tex' ] }
 
-Plug 'ervandew/supertab'
+Plug 'ncm2/ncm2'
 
 Plug 'chriskempson/base16-vim'
 
+Plug 'ervandew/supertab'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch' : 'next',
+            \ 'do' : 'bash install.sh',
+            \ }
+
+Plug 'roxma/nvim-yarp'
+
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'JuliaEditorSupport/julia-vim'
+
+Plug 'jceb/vim-orgmode'
+
+Plug 'tpope/vim-speeddating'
+
 call plug#end()
+
+"matching
+runtime macros/matchit.vim
 
 "tabs
 set tabstop=4
 set expandtab
-set smartindent
+set autoindent
 set shiftwidth=4
 
 "turn on highlighting
@@ -33,6 +55,9 @@ set backspace=indent,eol,start
 "nombres
 set number
 
+"enter clears search highlight
+noremap <enter> :noh<cr><cr>:<backspace>
+
 "colorscheme
 colorscheme base16-google-dark
 if has('termguicolors')
@@ -45,8 +70,17 @@ set mouse=a
 "spacebar as colon
 noremap <space> :
 
-"supertab
-let g:SuperTabDefaultCompletiontype = "context"
+"tab completion with LSPs
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+set completeopt=noinsert,menuone,noselect
+
+let g:LanguageClient_serverCommands = {
+    \ 'python' : ['/usr/local/bin/pyls'],
+    \ 'c' : ['/usr/bin/clangd']
+    \ }
+
+noremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
 "vimtex
 let g:vimtex_view_method = "zathura"

@@ -17,7 +17,9 @@ promptinit
 
 random_prompt_colour () {
     prompt_colour_options=("red", "blue", "yellow", "green", "magenta")
-    ((index=($RANDOM % $#prompt_colour_options) + 1))
+    slashes=${$(pwd)//[^\\\/]/}
+    dir_number=${#slashes}
+    ((index=($dir_number % $#prompt_colour_options) + 1))
     prompt walters $prompt_colour_options[$index]   
 }
 
@@ -27,3 +29,5 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 alias ..="cd .."
+
+set -k #comments in interactive mode

@@ -9,33 +9,31 @@ Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog', 
 
 Plug 'lervag/vimtex', { 'for' : [ 'plaintex', 'tex' ] }
 
-Plug 'ncm2/ncm2'
-
 Plug 'chriskempson/base16-vim'
 
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 
 Plug 'tpope/vim-fugitive'
 
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch' : 'next',
-            \ 'do' : 'bash install.sh',
-            \ }
+"Plug 'autozimu/LanguageClient-neovim', {
+"            \ 'branch' : 'next',
+"            \ 'do' : 'bash install.sh',
+"            \ }
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'roxma/nvim-yarp'
 
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'JuliaEditorSupport/julia-vim'
+Plug 'JuliaEditorSupport/julia-vim', { 'for' : [ 'julia' ] }
 
-Plug 'jceb/vim-orgmode'
-
-Plug 'tpope/vim-speeddating'
+Plug 'jpalardy/vim-slime'
 
 call plug#end()
 
 "matching
-runtime macros/matchit.vim
+"runtime macros/matchit.vim
 
 "tabs
 set tabstop=4
@@ -71,19 +69,49 @@ set mouse=a
 noremap <space> :
 
 "tab completion with LSPs
-autocmd BufEnter * call ncm2#enable_for_buffer()
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+"
+"set completeopt=noinsert,menuone,noselect
+"
+"let g:LanguageClient_serverCommands = {
+"    \ 'python' : ['/usr/local/bin/pyls'],
+"    \ 'c' : ['/usr/bin/clangd'],
+"    \ 'tex' : ['~/bin/texlab']
+"    \ }
+"
+"noremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
-set completeopt=noinsert,menuone,noselect
+set updatetime=300
 
-let g:LanguageClient_serverCommands = {
-    \ 'python' : ['/usr/local/bin/pyls'],
-    \ 'c' : ['/usr/bin/clangd']
-    \ }
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~# '\s'
+endfunction
 
-noremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 
 "vimtex
 let g:vimtex_view_method = "zathura"
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 
 "allow multiple buffers
 set hidden
@@ -92,3 +120,9 @@ set hidden
 set noruler
 set laststatus=2
 set statusline=%n\ %f\ (%Y)\ %m\ %=\ %l/%L
+
+"wrap lines when writing latex
+autocmd FileType tex setlocal textwidth=80
+
+"C-w does window moves in terminal mode
+tnoremap <C-w> <C-\><C-n><C-w>

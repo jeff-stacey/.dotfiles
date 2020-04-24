@@ -3,3 +3,5 @@ if [ "$COLORTERM" == "xfce4-terminal" ] ; then
 fi
 
 alias vi='vim' 
+
+source /media/jeff/shared/software/Xilinx/Vivado/2017.4/settings64.sh

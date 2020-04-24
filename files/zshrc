@@ -5,6 +5,9 @@ SAVEHIST=1000
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
+
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle :compinstall filename '/home/jeff/.zshrc'
 
 autoload -Uz compinit
@@ -31,3 +34,10 @@ bindkey '^R' history-incremental-search-backward
 alias ..="cd .."
 
 set -k #comments in interactive mode
+
+if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+    alias h='nvr -o'
+    alias v='nvr -O'
+fi
+
+alias ls="ls --color=auto"

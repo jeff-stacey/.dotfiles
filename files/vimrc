@@ -11,24 +11,13 @@ Plug 'lervag/vimtex', { 'for' : [ 'plaintex', 'tex' ] }
 
 Plug 'chriskempson/base16-vim'
 
-"Plug 'ervandew/supertab'
-
 Plug 'tpope/vim-fugitive'
-
-"Plug 'autozimu/LanguageClient-neovim', {
-"            \ 'branch' : 'next',
-"            \ 'do' : 'bash install.sh',
-"            \ }
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'roxma/nvim-yarp'
 
-Plug 'jiangmiao/auto-pairs'
-
 Plug 'JuliaEditorSupport/julia-vim', { 'for' : [ 'julia' ] }
-
-Plug 'jpalardy/vim-slime'
 
 call plug#end()
 
@@ -113,6 +102,8 @@ let g:vimtex_compiler_latexmk = {
     \ ],
     \}
 
+let g:tex_no_error=1
+
 "allow multiple buffers
 set hidden
 
@@ -126,3 +117,5 @@ autocmd FileType tex setlocal textwidth=80
 
 "C-w does window moves in terminal mode
 tnoremap <C-w> <C-\><C-n><C-w>
+
+autocmd TermOpen * setlocal nonumber norelativenumber

@@ -32,4 +32,8 @@ else
     echo "nvim not installed, skipping configuration"
 fi
 
+if [ -d ~/.local/share/xfce4/terminal/colorschemes ]; then
+    cp xfce4-terminal-colours/base16-google.dark.theme ~/.local/share/xfce4/terminal/colorschemes
+fi
+
 echo "Done"

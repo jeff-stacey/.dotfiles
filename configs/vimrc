@@ -94,7 +94,7 @@ let g:vimtex_compiler_latexmk = {
     \}
 
 let g:vimtex_quickfix_open_on_warning = 0
-
+f
 let g:tex_no_error=1
 
 "allow multiple buffers
@@ -114,12 +114,5 @@ tnoremap <C-w> <C-\><C-n><C-w>
 "Don't print line numbers in terminal
 autocmd TermOpen * setlocal nonumber norelativenumber
 
-""control for basic movements in insert mode
-"inoremap <C-h> <Left>
-"inoremap <C-j> <Down>
-"inoremap <C-k> <Up>
-"inoremap <C-l> <Right>
-"inoremap <C-i> <Home>
-"inoremap <C-o> <End>
-"nnoremap <C-i> <Home>
-"nnoremap <C-o> <End>
+"keep the split open when deleting buffers
+cnoreabbrev bd b#<bar>bd #

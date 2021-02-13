@@ -53,7 +53,7 @@ set -k #comments in interactive mode
 if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
     alias h='nvr -o'
     alias v='nvr -O'
-    alias e='nvr -l'
+    alias vi='nvr -l'
 fi
 
 export EDITOR="nvim"

@@ -21,9 +21,6 @@ Plug 'JuliaEditorSupport/julia-vim', { 'for' : [ 'julia' ] }
 
 call plug#end()
 
-"matching
-"runtime macros/matchit.vim
-
 "tabs
 set tabstop=4
 set expandtab
@@ -119,3 +116,6 @@ autocmd FileType tex setlocal textwidth=80
 tnoremap <C-w> <C-\><C-n><C-w>
 
 autocmd TermOpen * setlocal nonumber norelativenumber
+
+"keep the split open when deleting buffers
+cnoreabbrev bd b#<bar>bd #

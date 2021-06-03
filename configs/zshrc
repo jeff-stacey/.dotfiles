@@ -45,8 +45,10 @@ bindkey '^R' history-incremental-search-backward
 
 alias sudo='sudo '
 alias vi='nvim'
+alias vim='nvim'
 alias ..="cd .."
 alias ls="ls -F"
+alias ssh='TERM="xterm-256color" ssh'
 
 set -k #comments in interactive mode
 

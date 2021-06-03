@@ -38,6 +38,13 @@ if [ -d ~/.local/share/xfce4/terminal/colorschemes ]; then
     cp xfce4-terminal-colours/base16-google.dark.theme ~/.local/share/xfce4/terminal/colorschemes
 fi
 
+echo "Setting up kitty config"
+if [ -d ~/.config/kitty ] then
+    echo "kitty configuration already exists at ~/.config/kitty, skipping replacement"
+else
+    ln -s $basedir/configs/kitty ~/.configs/kitty
+fi
+
 echo "Setting up desktop files"
 filelist=`ls $basedir/desktop`
 

@@ -113,6 +113,3 @@ tnoremap <C-w> <C-\><C-n><C-w>
 
 "Don't print line numbers in terminal
 autocmd TermOpen * setlocal nonumber norelativenumber
-
-"keep the split open when deleting buffers
-cnoreabbrev bd b#<bar>bd #

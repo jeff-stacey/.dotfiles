@@ -13,13 +13,15 @@ Plug 'chriskempson/base16-vim'
 
 Plug 'tpope/vim-fugitive'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'roxma/nvim-yarp'
 
 Plug 'JuliaEditorSupport/julia-vim', { 'for' : [ 'julia' ] }
 
 Plug 'machakann/vim-highlightedyank'
+
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
@@ -58,27 +60,6 @@ noremap <space> :
 
 set updatetime=300
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~# '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-"let g:coc_snippet_next = '<Tab>'
-"let g:coc_snippet_prev = '<S-Tab>'
-
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-
-
 "vimtex
 let g:vimtex_fold_enabled = 1
 let g:vimtex_view_method = "zathura"
@@ -94,7 +75,6 @@ let g:vimtex_compiler_latexmk = {
     \}
 
 let g:vimtex_quickfix_open_on_warning = 0
-f
 let g:tex_no_error=1
 
 "allow multiple buffers
@@ -113,3 +93,10 @@ tnoremap <C-w> <C-\><C-n><C-w>
 
 "Don't print line numbers in terminal
 autocmd TermOpen * setlocal nonumber norelativenumber
+
+" set up completion with lsps
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+let g:completion_enable_auto_popup = 0
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)

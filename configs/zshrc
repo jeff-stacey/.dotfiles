@@ -1,0 +1,71 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _complete _ignored
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+zstyle :compinstall filename '/home/jeff/.zshrc'
+
+autoload -Uz compinit promptinit
+compinit
+# End of lines added by compinstall
+
+# makes all sessions share a history
+setopt appendhistory # no overwriting
+setopt sharehistory # share histories
+setopt incappendhistory # add to history as commands run, not just at close
+
+source ~/.commonprofile
+
+plugins=(virtualenv)
+
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+}
+
+autoload -Uz promptinit
+promptinit
+
+random_prompt_colour () {
+    prompt_colour_options=("red", "blue", "yellow", "green", "magenta")
+    slashes=${$(pwd)//[^\\\/]/}
+    dir_number=${#slashes}
+    ((index=($dir_number % $#prompt_colour_options) + 1))
+    prompt walters $prompt_colour_options[$index]
+    PROMPT=$(virtualenv_info)$PROMPT
+}
+
+add-zsh-hook precmd random_prompt_colour
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
+
+bindkey '^R' history-incremental-search-backward
+
+alias sudo='sudo '
+alias vi='nvim'
+alias vim='nvim'
+alias ..="cd .."
+alias ls="ls -F"
+alias ssh='TERM="xterm-256color" ssh'
+alias svi='sudoedit'
+alias svim='sudoedit'
+
+set -k #comments in interactive mode
+
+if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+    alias h='nvr -o'
+    alias v='nvr -O'
+    alias vi='nvr -l'
+fi
+
+export EDITOR="nvim";
+
+export PATH=~/shared/software/fpga-toolchain/bin/:$PATH
+
+source ~/.dotfiles/scripts/zsh-z-master/zsh-z.plugin.zsh
+zstyle ':completion:*' menu select

@@ -3,7 +3,3 @@ if [ "$COLORTERM" == "xfce4-terminal" ] ; then
 fi
 
 source ~/.commonprofile
-
-alias sudo='sudo '
-alias vi='nvim'
-alias vim='nvim'

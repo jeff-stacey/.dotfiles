@@ -12,7 +12,11 @@ mkdir -p $olddir
 
 echo "Moving existing dotfiles to $olddir"
 
-filelist=`ls $basedir/configs`
+filelist=(
+	bashrc
+	zshrc
+	vimrc
+)
 
 for file in $filelist; do
 	echo "	$file"
@@ -39,7 +43,7 @@ if [ -d ~/.local/share/xfce4/terminal/colorschemes ]; then
 fi
 
 echo "Setting up kitty config"
-if [ -d ~/.config/kitty ] then
+if [ -d ~/.config/kitty ]; then
     echo "kitty configuration already exists at ~/.config/kitty, skipping replacement"
 else
     ln -s $basedir/configs/kitty ~/.configs/kitty

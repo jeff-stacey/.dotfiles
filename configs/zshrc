@@ -63,6 +63,7 @@ alias sudo='sudo '
 alias vi='nvim'
 alias vim='nvim'
 alias ..="cd .."
+alias ...="cd ../.."
 alias ls="ls -F"
 alias ssh='TERM="xterm-256color" ssh'
 alias svi='sudoedit'
@@ -78,7 +79,7 @@ fi
 
 export EDITOR="nvim";
 
-export PATH=~/shared/software/fpga-toolchain/bin/:$PATH
+export PATH=/opt/oss-cad-suite/bin/:$PATH
 
 source ~/.dotfiles/scripts/zsh-z-master/zsh-z.plugin.zsh
 zstyle ':completion:*' menu select

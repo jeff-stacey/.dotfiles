@@ -93,8 +93,9 @@ set noruler
 set laststatus=2
 set statusline=%n\ %f\ (%Y)\ %m\ %=\ %l/%L
 
-"wrap lines when writing latex
+"wrap lines when writing latex or wiki
 autocmd FileType tex setlocal textwidth=80
+autocmd FileType vimwiki setlocal textwidth=80
 
 "C-w does window moves in terminal mode
 tnoremap <C-w> <C-\><C-n><C-w>
@@ -117,3 +118,14 @@ inoremap <silent><expr> <S-Tab>
             \ pumvisible() ? "\<C-p>" :
             \ <SID>check_back_space() ? "\<S-Tab>" :
             \ coc#refresh()
+
+" disable shift-up and shift-down as pgup and pgdn
+noremap <S-Up> <Up>
+noremap <S-Down> <Down>
+
+set autochdir
+
+set showbreak=-->\ 
+set breakindent
+set linebreak
+hi NonText guifg=red guibg=None

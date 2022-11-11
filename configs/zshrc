@@ -60,12 +60,17 @@ bindkey "^[[3~" delete-char
 bindkey '^R' history-incremental-search-backward
 
 alias sudo='sudo '
+
 alias vi='nvim'
 alias vim='nvim'
+
 alias ..="cd .."
 alias ...="cd ../.."
+
 alias ls="ls -F"
+
 alias ssh='TERM="xterm-256color" ssh'
+
 alias svi='sudoedit'
 alias svim='sudoedit'
 

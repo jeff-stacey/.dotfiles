@@ -13,48 +13,18 @@ mkdir -p $olddir
 echo "Moving existing dotfiles to $olddir"
 
 filelist=(
-	bashrc
-	zshrc
-	vimrc
+	"bashrc, ~/.bashrc"
+	"zshrc, ~/.zshrc"
+	"vimrc, ~/.vimrc"
+    "ssh_config, ~/.ssh/config"
+    "init.vim, ~/.config/nvim/init.vim"
 )
 
-for file in $filelist; do
-	echo "	$file"
-	mv ~/.$file ~/.olddotfiles/
-	ln -s $basedir/configs/$file ~/.$file
-done
-
-if [ -d ~/.config/nvim ]; then
-    if [ -f ~/.config/nvim/init.vim ]; then
-        echo "nvim init file already exists, skipping replacement"
-    else
-        echo "configuring nvim"
-        echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after
-        let &packpath = &runtimepath
-        source ~/.vimrc" > ~/.config/nvim/init.vim
-    fi
-else
-    echo "nvim not installed, skipping configuration"
-fi
-
-echo "Copying terminal color scheme"
-if [ -d ~/.local/share/xfce4/terminal/colorschemes ]; then
-    cp xfce4-terminal-colours/base16-google.dark.theme ~/.local/share/xfce4/terminal/colorschemes
-fi
-
-echo "Setting up kitty config"
-if [ -d ~/.config/kitty ]; then
-    echo "kitty configuration already exists at ~/.config/kitty, skipping replacement"
-else
-    ln -s $basedir/configs/kitty ~/.configs/kitty
-fi
-
-echo "Setting up desktop files"
-filelist=`ls $basedir/desktop`
-
-for file in $filelist; do
-    echo "  $file"
-    ln -si $basedir/desktop/$file ~/.local/share/applications/$file
+for file_pair in $filelist; do
+    IFS=',' read src tgt <<< "${i}"
+	echo "	$src"
+	mv $tgt ~/.olddotfiles/
+	ln -s $basedir/configs/$src $tgt
 done
 
 echo "Done"

@@ -3,3 +3,5 @@ Type=Application
 Name=bluetoothctl
 Exec=xfce4-terminal -x bluetoothctl
 Icon=blueman-device
+Hidden=true
+

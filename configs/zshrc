@@ -30,15 +30,28 @@ autoload -Uz promptinit
 promptinit
 
 random_prompt_colour () {
+    hostname_colour="yellow"
     prompt_colour_options=("red", "blue", "yellow", "green", "magenta")
     slashes=${$(pwd)//[^\\\/]/}
     dir_number=${#slashes}
     ((index=($dir_number % $#prompt_colour_options) + 1))
-    prompt walters $prompt_colour_options[$index]
+
+    if [[ "$TERM" != "dumb" ]]; then
+        PS1="%B%(?..[%?] )%b%n@%F{$hostname_colour}%m%f> "
+        RPS1="%F{$prompt_colour_options[$index]}%~%f"
+    else
+        PS1="%(?..[%?] )%n@%m:%~> "
+    fi
+
     PROMPT=$(virtualenv_info)$PROMPT
 }
 
+term_title () {
+    print -Pn "\e]2;%M:%~\a"
+}
+
 add-zsh-hook precmd random_prompt_colour
+add-zsh-hook precmd term_title
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
@@ -47,17 +60,23 @@ bindkey "^[[3~" delete-char
 bindkey '^R' history-incremental-search-backward
 
 alias sudo='sudo '
+
 alias vi='nvim'
 alias vim='nvim'
+
 alias ..="cd .."
+alias ...="cd ../.."
+
 alias ls="ls -F"
+
 alias ssh='TERM="xterm-256color" ssh'
+
 alias svi='sudoedit'
 alias svim='sudoedit'
 
 set -k #comments in interactive mode
 
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+if [ -n "${NVIM+x}" ]; then
     alias h='nvr -o'
     alias v='nvr -O'
     alias vi='nvr -l'
@@ -65,7 +84,5 @@ fi
 
 export EDITOR="nvim";
 
-export PATH=~/shared/software/fpga-toolchain/bin/:$PATH
+export PATH=/opt/oss-cad-suite/bin/:$PATH
 
-source ~/.dotfiles/scripts/zsh-z-master/zsh-z.plugin.zsh
-zstyle ':completion:*' menu select

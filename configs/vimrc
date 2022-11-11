@@ -5,7 +5,7 @@ filetype off
 "set up vim plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog', 'verilogsystemverilog', 'verilog_systemverilog'] }
+"Plug 'vhda/verilog_systemverilog.vim' , { 'for' : [ 'verilog', 'systemverilog', 'verilogsystemverilog', 'verilog_systemverilog'] }
 
 Plug 'lervag/vimtex', { 'for' : [ 'plaintex', 'tex' ] }
 
@@ -13,15 +13,24 @@ Plug 'chriskempson/base16-vim'
 
 Plug 'tpope/vim-fugitive'
 
-Plug 'roxma/nvim-yarp'
-
 Plug 'JuliaEditorSupport/julia-vim', { 'for' : [ 'julia' ] }
 
 Plug 'machakann/vim-highlightedyank'
 
 Plug 'neovim/nvim-lspconfig'
 
-Plug 'nvim-lua/completion-nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'simrat39/rust-tools.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'romgrk/nvim-treesitter-context'
+
+Plug 'liuchengxu/vista.vim'
+
+"Plug 'jiangmiao/auto-pairs'
+
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -61,7 +70,6 @@ noremap <space> :
 set updatetime=300
 
 "vimtex
-let g:vimtex_fold_enabled = 1
 let g:vimtex_view_method = "zathura"
 let g:vimtex_compiler_latexmk = {
     \ 'options' : [
@@ -85,8 +93,9 @@ set noruler
 set laststatus=2
 set statusline=%n\ %f\ (%Y)\ %m\ %=\ %l/%L
 
-"wrap lines when writing latex
+"wrap lines when writing latex or wiki
 autocmd FileType tex setlocal textwidth=80
+autocmd FileType vimwiki setlocal textwidth=80
 
 "C-w does window moves in terminal mode
 tnoremap <C-w> <C-\><C-n><C-w>
@@ -94,9 +103,29 @@ tnoremap <C-w> <C-\><C-n><C-w>
 "Don't print line numbers in terminal
 autocmd TermOpen * setlocal nonumber norelativenumber
 
-" set up completion with lsps
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
-let g:completion_enable_auto_popup = 0
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
+" set up completion
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
+
+inoremap <silent><expr> <S-Tab>
+            \ pumvisible() ? "\<C-p>" :
+            \ <SID>check_back_space() ? "\<S-Tab>" :
+            \ coc#refresh()
+
+" disable shift-up and shift-down as pgup and pgdn
+noremap <S-Up> <Up>
+noremap <S-Down> <Down>
+
+set autochdir
+
+set showbreak=-->\ 
+set breakindent
+set linebreak
+hi NonText guifg=red guibg=None

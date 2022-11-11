@@ -70,7 +70,6 @@ noremap <space> :
 set updatetime=300
 
 "vimtex
-let g:vimtex_fold_enabled = 1
 let g:vimtex_view_method = "zathura"
 let g:vimtex_compiler_latexmk = {
     \ 'options' : [
@@ -103,9 +102,18 @@ tnoremap <C-w> <C-\><C-n><C-w>
 "Don't print line numbers in terminal
 autocmd TermOpen * setlocal nonumber norelativenumber
 
-" set up completion with lsps
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
-let g:completion_enable_auto_popup = 0
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
+" set up completion
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
+
+inoremap <silent><expr> <S-Tab>
+            \ pumvisible() ? "\<C-p>" :
+            \ <SID>check_back_space() ? "\<S-Tab>" :
+            \ coc#refresh()

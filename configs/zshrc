@@ -81,5 +81,3 @@ export EDITOR="nvim";
 
 export PATH=/opt/oss-cad-suite/bin/:$PATH
 
-source ~/.dotfiles/scripts/zsh-z-master/zsh-z.plugin.zsh
-zstyle ':completion:*' menu select

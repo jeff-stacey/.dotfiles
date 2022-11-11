@@ -70,7 +70,7 @@ alias svim='sudoedit'
 
 set -k #comments in interactive mode
 
-if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+if [ -n "${NVIM+x}" ]; then
     alias h='nvr -o'
     alias v='nvr -O'
     alias vi='nvr -l'

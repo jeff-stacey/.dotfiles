@@ -1,0 +1,70 @@
+Host *
+    TCPKeepAlive yes
+    ServerAliveInterval 120
+    Compression yes
+
+Host rcg
+    HostName rcga-linux-ts1.dc.sfu.ca
+    User jsa374
+
+# No terminal server required for lab desktops.
+# Jeff - Uncomment this and make changes when we assign you a desktop
+#Host lab
+#    HostName ensc-sarlab-22.engineering.sfu.ca
+#    User jsa374
+#    Port 22
+
+# Multi CPU server
+Host orca
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    ProxyCommand ssh rcg nc ensc-sarserv-02.research.sfu.ca 22
+    User jsa374
+    Port 22
+
+# Newest GPU server (4x V100's)
+Host nemo
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    ProxyCommand ssh rcg nc ensc-sarserv-03.research.sfu.ca 22
+    User jsa374
+    Port 22
+
+# Old GPU server (4x K80's)
+Host dory
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    #ProxyCommand ssh rcg nc ensc-sarserv-01.research.sfu.ca 22
+    ProxyJump rcg
+    HostName ensc-sarserv-01.research.sfu.ca
+    User jsa374
+    Port 22
+
+# Jeff's desktop in the lab
+Host jslab
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    #ProxyJump rcg
+    HostName ensc-sarlab-07.engineering.sfu.ca
+    User jsa374
+    Port 22
+
+Host wslab
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    HostName ensc-sarlab-22.engineering.sfu.ca
+    User jsa374
+    Port 22
+
+# CMPT 770 Server
+Host cmpt770
+    HostName cs-cloud.cs.surrey.sfu.ca
+    Port 24
+    User jsa374
+
+host lime
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    HostName lime
+    port 22
+    user jeff

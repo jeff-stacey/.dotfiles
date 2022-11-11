@@ -24,6 +24,9 @@ for file in $filelist; do
 	ln -s $basedir/configs/$file ~/.$file
 done
 
+mv ~/.ssh/config ~/.olddotfiles/ssh_config
+ln -s $basedir/configs/ssh_config ~/.ssh/config
+
 if [ -d ~/.config/nvim ]; then
     if [ -f ~/.config/nvim/init.vim ]; then
         echo "nvim init file already exists, skipping replacement"
@@ -40,13 +43,6 @@ fi
 echo "Copying terminal color scheme"
 if [ -d ~/.local/share/xfce4/terminal/colorschemes ]; then
     cp xfce4-terminal-colours/base16-google.dark.theme ~/.local/share/xfce4/terminal/colorschemes
-fi
-
-echo "Setting up kitty config"
-if [ -d ~/.config/kitty ]; then
-    echo "kitty configuration already exists at ~/.config/kitty, skipping replacement"
-else
-    ln -s $basedir/configs/kitty ~/.configs/kitty
 fi
 
 echo "Setting up desktop files"

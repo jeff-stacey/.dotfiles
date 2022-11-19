@@ -13,10 +13,10 @@ mkdir -p $olddir
 echo "Moving existing dotfiles to $olddir"
 
 filelist=(
+    "login", "~/.login"
+    "commonprofile", "~/.commonprofile"
 	"bashrc, ~/.bashrc"
-	"zshrc, ~/.zshrc"
 	"vimrc, ~/.vimrc"
-    "ssh_config, ~/.ssh/config"
     "init.vim, ~/.config/nvim/init.vim"
 )
 

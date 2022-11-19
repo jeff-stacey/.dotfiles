@@ -1,1 +1,64 @@
 source ~/.commonprofile
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# stops the xv window from moving around
+alias xv="xv -drift -4 -25 -igeometry 500x500+1500+50 -geom 1920x998 -fixed"
+alias xvr="xv *ras&"
+
+# adds filename completion for .ras files
+complete -f -X '!*.@(gif|jp?(e)g|tif?(f)|png|bmp|p[bgp]m|x[bp]m|rle|rgb|pcx|fits|pm|?(e)ps|ras)' xv
+
+# User specific aliases and functions
+export GAMMAX_TMP=/home/jsa374/tmp
+export GAMMA_COMMON_PATH=/local-scratch/sarlab-env/gamma_common
+source $GAMMA_COMMON_PATH/gamma_common_rc
+export TOOLS_HOME=/local-scratch/sarlab-env/tools_common
+source $TOOLS_HOME/tools_common_rc
+export PYTHON_ENV_COMMON=/local-scratch/sarlab-env/python_common
+source $PYTHON_ENV_COMMON/virtual_python_rc38
+
+# set up prompt - i don't like the default one
+function prompt() {
+    name=$(hostname -s)
+
+    if [ "$name" == "ensc-sarserv-01" ]; then
+        name="dory"
+    elif [ "$name" == "ensc-sarserv-02" ]; then
+        name="orca"
+    elif [ "$name" == "ensc-sarserv-03" ]; then 
+        name="nemo"
+    fi
+
+    PS1="\u@$name:\w> "
+    echo -ne "\033];nemo:$(dirs +0)\007"
+}
+PROMPT_COMMAND=prompt
+
+# editor stuff
+NIVM_INSTALL_DIR=$HOME/bin/nvim-linux64
+alias vi="$NVIM_INSTALL_DIR/bin/nvim"
+alias vim="$NVIM_INSTALL_DIR/bin/nvim"
+alias nvim="$NVIM_INSTALL_DIR/bin/nvim"
+alias vimdiff="$NVIM_INSTALL_DIR/bin/nvim -d"
+export EDITOR="$NVIM_INSTALL_DIR/bin/nvim"
+
+# newer git version
+export PATH="/opt/git/bin:$PATH"
+
+# neovim remote
+if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
+    alias vi='nvr -l'
+fi
+
+# directory marks
+alias cdp="cd -P"
+complete -f _cd cdp
+export CDPATH=.:~/.marks/
+function mark {
+    ln -sr "$(pwd)" ~/.marks/"$1"
+}
+

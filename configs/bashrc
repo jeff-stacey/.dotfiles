@@ -39,9 +39,8 @@ function prompt() {
 PROMPT_COMMAND=prompt
 
 # editor stuff
-NIVM_INSTALL_DIR=$HOME/bin/nvim-linux64
+NVIM_INSTALL_DIR=$HOME/bin/nvim-linux64
 alias vi="$NVIM_INSTALL_DIR/bin/nvim"
-alias vim="$NVIM_INSTALL_DIR/bin/nvim"
 alias nvim="$NVIM_INSTALL_DIR/bin/nvim"
 alias vimdiff="$NVIM_INSTALL_DIR/bin/nvim -d"
 export EDITOR="$NVIM_INSTALL_DIR/bin/nvim"

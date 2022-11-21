@@ -13,18 +13,19 @@ mkdir -p $olddir
 echo "Moving existing dotfiles to $olddir"
 
 filelist=(
-    "login", "~/.login"
-    "commonprofile", "~/.commonprofile"
-	"bashrc, ~/.bashrc"
-	"vimrc, ~/.vimrc"
-    "init.vim, ~/.config/nvim/init.vim"
+    "login,$HOME/.login"
+    "commonprofile,$HOME/.commonprofile"
+    "bashrc,$HOME/.bashrc"
+    "vimrc,$HOME/.vimrc"
+    "init.vim,$HOME/.config/nvim/init.vim"
 )
 
-for file_pair in $filelist; do
-    IFS=',' read src tgt <<< "${i}"
-	echo "	$src"
-	mv $tgt ~/.olddotfiles/
-	ln -s $basedir/configs/$src $tgt
+for file_pair in ${filelist[@]}; do
+    IFS=',' read src tgt <<< "${file_pair}"
+	echo "	$basedir/configs/$src -> $tgt"
+	mv $tgt $olddir
+	mkdir -p $(dirname "$tgt")
+ln -s $basedir/configs/$src $tgt
 done
 
 echo "Done"

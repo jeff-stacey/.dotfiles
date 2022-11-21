@@ -2,24 +2,6 @@ set nocompatible
 
 filetype off
 
-"set up vim plug
-call plug#begin('~/.vim/plugged')
-
-Plug 'chriskempson/base16-vim'
-
-Plug 'tpope/vim-fugitive'
-
-Plug 'machakann/vim-highlightedyank'
-
-Plug 'neovim/nvim-lspconfig'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'romgrk/nvim-treesitter-context'
-
-call plug#end()
-
 "tabs
 set tabstop=4
 set expandtab
@@ -42,7 +24,6 @@ set number
 noremap <enter> :noh<cr><cr>:<backspace>
 
 "colorscheme
-colorscheme base16-google-dark
 if has('termguicolors')
     set termguicolors
 end
@@ -62,28 +43,6 @@ set hidden
 set noruler
 set laststatus=2
 set statusline=%n\ %f\ (%Y)\ %m\ %=\ %l/%L
-
-"C-w does window moves in terminal mode
-tnoremap <C-w> <C-\><C-n><C-w>
-
-"Don't print line numbers in terminal
-autocmd TermOpen * setlocal nonumber norelativenumber
-
-" set up completion
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
-
-inoremap <silent><expr> <S-Tab>
-            \ pumvisible() ? "\<C-p>" :
-            \ <SID>check_back_space() ? "\<S-Tab>" :
-            \ coc#refresh()
 
 " disable shift-up and shift-down as pgup and pgdn
 noremap <S-Up> <Up>

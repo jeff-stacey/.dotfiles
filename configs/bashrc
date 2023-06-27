@@ -20,6 +20,7 @@ export TOOLS_HOME=/local-scratch/sarlab-env/tools_common
 source $TOOLS_HOME/tools_common_rc
 export PYTHON_ENV_COMMON=/local-scratch/sarlab-env/python_common
 source $PYTHON_ENV_COMMON/virtual_python_rc38
+source $PYTHON_ENV_COMMON/cuda_rc35
 
 # set up prompt - i don't like the default one
 function prompt() {
